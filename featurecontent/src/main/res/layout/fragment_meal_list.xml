@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.example.commonui.component.CompSearchBox
+        android:id="@+id/compSearchBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <com.example.commonui.component.CompRecyclerView
         android:id="@+id/rvMovieList"
         android:layout_width="match_parent"

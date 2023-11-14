@@ -1,6 +1,8 @@
 package com.example.featurecontent.mealList
 
+import android.content.Context
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -37,7 +39,18 @@ class MealListFragment : BaseFragment(R.layout.fragment_meal_list) {
         binding.rvMovieList.setAdapter(adapter)
         binding.rvMovieList.initialHideList()
 
-        viewModel.getMovies()
+        viewModel.getMealList()
+    }
+
+    override fun initEventListener() {
+        super.initEventListener()
+
+        binding.compSearchBox.onSearchPerformed { query ->
+            hideKeyboard()
+            adapter.clearData()
+            binding.rvMovieList.showWait()
+            viewModel.requestSearch(query)
+        }
     }
 
     override fun initObserver() {
@@ -83,5 +96,12 @@ class MealListFragment : BaseFragment(R.layout.fragment_meal_list) {
                 }
             }
         }
+    }
+
+
+    private fun hideKeyboard() {
+        val imm: InputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }

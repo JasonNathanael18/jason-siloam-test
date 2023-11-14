@@ -25,9 +25,11 @@ class MealListViewModel @Inject constructor(
             viewModelState.value.toUiState()
         )
 
-    fun getMovies() {
+    var query = "a"
+
+    fun getMealList() {
         viewModelScope.launch {
-            getMeal().collect { result ->
+            getMeal(query).collect { result ->
                 when (result) {
                     is Resource.Loading -> {
                         viewModelState.update {
@@ -54,6 +56,12 @@ class MealListViewModel @Inject constructor(
             }
         }
     }
+
+    fun requestSearch(query: String) {
+        this.query = query
+        getMealList()
+    }
+
 }
 
 private data class MealViewModelState(

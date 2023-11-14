@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 class GetMeal(
     private val mealRepository: MealRepository
 ) {
-    operator fun invoke(): Flow<Resource<List<Meal>>> {
-        return mealRepository.getMealList()
+    operator fun invoke(query: String = ""): Flow<Resource<List<Meal>>> {
+        return mealRepository.getMealList(query)
     }
 }

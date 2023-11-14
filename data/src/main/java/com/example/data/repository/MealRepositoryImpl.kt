@@ -17,10 +17,10 @@ class MealRepositoryImpl @Inject constructor(
     private val mealResponseDao: MealResponseDao,
     private val mealDao: MealDao
 ) : MealRepository {
-    override fun getMealList(): Flow<Resource<List<Meal>>> = flow {
+    override fun getMealList(query: String): Flow<Resource<List<Meal>>> = flow {
         emit(Resource.Loading())
         try {
-            fetchAndInsertMealList(mealApiService, mealResponseDao, mealDao)
+            fetchAndInsertMealList(mealApiService, mealResponseDao, mealDao, query)
         } catch (e: HttpException) {
             emit(
                 Resource.Error(
@@ -41,9 +41,10 @@ class MealRepositoryImpl @Inject constructor(
     private suspend fun fetchAndInsertMealList(
         mealApiService: MealApiService,
         mealResponseDao: MealResponseDao,
-        mealDao: MealDao
+        mealDao: MealDao,
+        query: String
     ) {
-        val remoteMealList = mealApiService.getMealList()
+        val remoteMealList = mealApiService.getMealList(query)
         mealResponseDao.insertMealResponse(remoteMealList.toMealResponseEntity())
         mealDao.insertMealList(remoteMealList.results.map { it.toMealEntity() }) //now insert newly fetched data to db
     }

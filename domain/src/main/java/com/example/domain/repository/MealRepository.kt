@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface MealRepository {
-    fun getMealList(): Flow<Resource<List<Meal>>>
+    fun getMealList(query: String): Flow<Resource<List<Meal>>>
 }
