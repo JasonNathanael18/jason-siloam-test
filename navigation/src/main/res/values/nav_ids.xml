@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="content_flow" type="id" />
+    <item name="authentication_flow" type="id" />
+    <item name="base_flow" type="id"/>
+</resources>
