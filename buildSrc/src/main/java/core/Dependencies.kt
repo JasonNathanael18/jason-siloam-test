@@ -51,6 +51,9 @@ internal object Dependencies {
 //    const val composeTooling = "androidx.compose.ui:ui-tooling:${Versions.composeVersion}"
 //    const val composeTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.composeVersion}"
 
+    const val glide = "com.github.bumptech.glide:glide:4.11.0"
+    const val glideCompiler = "com.github.bumptech.glide:compiler:4.11.0"
+
     const val googleTruth = "com.google.truth:truth:1.1.3"
     const val mockitoCore = "org.mockito:mockito-core:3.11.2"
     const val mockitoInline = "org.mockito:mockito-inline:3.11.2"

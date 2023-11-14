@@ -9,4 +9,9 @@ interface MealApiService {
     suspend fun getMealList(
         @Query("f") query: String
     ): MealResponseDto
+
+    @GET("v1/1/lookup.php")
+    suspend fun getMealDetail(
+        @Query("i") idMeal: String
+    ): MealResponseDto
 }

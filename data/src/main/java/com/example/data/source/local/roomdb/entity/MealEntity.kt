@@ -16,6 +16,7 @@ data class MealEntity(
 
     fun toMeal(): Meal {
         return Meal(
+            idMeal = id.toString(),
             strMeal = strMeal,
             strCategory = strCategory,
             strArea = strArea,

@@ -7,6 +7,35 @@
     <fragment
         android:id="@+id/mealListFragment"
         android:name="com.example.featurecontent.mealList.MealListFragment" >
+
+        <action
+            android:id="@+id/action_mealListFragment_to_mealDetailFragment"
+            app:destination="@id/mealDetailFragment" />
+
+        <action
+            android:id="@+id/action_mealListFragment_to_mealPhotoFragment"
+            app:destination="@id/mealPhotoFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/mealDetailFragment"
+        android:name="com.example.featurecontent.mealDetail.MealDetailFragment" >
+
+        <argument
+            android:name="mealId"
+            app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/mealPhotoFragment"
+        android:name="com.example.featurecontent.mealPhoto.MealPhotoFragment" >
+
+        <argument
+            android:name="mealPhotoUrl"
+            app:argType="string" />
+
     </fragment>
 
 </navigation>

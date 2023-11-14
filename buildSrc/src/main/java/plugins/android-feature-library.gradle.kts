@@ -59,6 +59,7 @@ dependencies {
     addHiltDependencies()
     addAndroidTestsDependencies()
     addNavigationDependencies()
+    addGlideDependencies()
 }
 
 kapt {

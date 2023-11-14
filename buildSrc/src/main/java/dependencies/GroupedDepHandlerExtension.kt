@@ -19,6 +19,11 @@ fun DependencyHandler.addHiltDependencies() {
     add("kapt",Dependencies.hiltCompiler)
 }
 
+fun DependencyHandler.addGlideDependencies() {
+    add("implementation",Dependencies.glide)
+    add("kapt",Dependencies.glideCompiler)
+}
+
 fun DependencyHandler.addNetworkDependencies(configurationName:String = "implementation"){
     networkDependencies.forEach {
         add(configurationName,it)

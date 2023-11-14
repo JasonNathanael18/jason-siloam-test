@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.domain.model.Meal
 import com.example.featurecontent.R
 import com.example.featurecontent.databinding.CompInfoItemMealListBinding
@@ -16,6 +19,7 @@ class MealListAdapter @Inject constructor(@ActivityContext private val context: 
 
     interface OnItemClickListener {
         fun onItemClick(view: View, item: Meal)
+        fun onImageClick(view: View, item: Meal)
     }
 
     inner class MovieListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -35,19 +39,23 @@ class MealListAdapter @Inject constructor(@ActivityContext private val context: 
 
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val data = datas[position]
-//        val glideOpt = RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).fitCenter()
-//            .placeholder(R.drawable.ic_launcher_foreground).error(R.drawable.ic_launcher_background)
-//        Glide.with(context)
-//            .load(data.thumbnail)
-//            .apply(glideOpt)
-//            .thumbnail(0.1f)
-//            .transform(CircleCrop())
-//            .into(holder.binding.ivThumbnail)
+        val glideOpt = RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).fitCenter()
+            .placeholder(com.example.commonui.R.drawable.ic_launcher_background)
+            .error(com.example.commonui.R.drawable.ic_launcher_background)
+        Glide.with(context)
+            .load(data.strMealThumb)
+            .apply(glideOpt)
+            .thumbnail(0.1f)
+            .into(holder.binding.ivThumbnail)
         holder.binding.apply {
             labelMealName.text = data.strMeal
             labelMealCategory.text = data.strCategory
             labelMealArea.text = data.strArea
             labelMealTags.text = data.strTags
+        }
+
+        holder.binding.ivThumbnail.setOnClickListener {
+            onItemClickListener?.onImageClick(it, datas[position])
         }
 
         holder.binding.itemUser.setOnClickListener {

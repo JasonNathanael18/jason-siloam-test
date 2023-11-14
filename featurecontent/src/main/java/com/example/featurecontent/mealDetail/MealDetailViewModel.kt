@@ -1,4 +1,4 @@
-package com.example.featurecontent.mealList
+package com.example.featurecontent.mealDetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,25 +11,23 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MealListViewModel @Inject constructor(
+class MealDetailViewModel @Inject constructor(
     private val getMeal: GetMeal
 ) : ViewModel() {
 
-    private val viewModelState = MutableStateFlow(MealViewModelState(isLoading = true))
+    private val viewModelState = MutableStateFlow(MealDetailViewModelState(isLoading = true))
 
     val uiState = viewModelState
-        .map(MealViewModelState::toUiState)
+        .map(MealDetailViewModelState::toUiState)
         .stateIn(
             viewModelScope,
             SharingStarted.Eagerly,
             viewModelState.value.toUiState()
         )
 
-    var query = "a"
-
-    fun getMealList() {
+    fun getMealList(idMeal : String) {
         viewModelScope.launch {
-            getMeal.getMealList(query).collect { result ->
+            getMeal.getMealDetail(idMeal).collect { result ->
                 when (result) {
                     is Resource.Loading -> {
                         viewModelState.update {
@@ -57,41 +55,36 @@ class MealListViewModel @Inject constructor(
         }
     }
 
-    fun requestSearch(query: String) {
-        this.query = query
-        getMealList()
-    }
-
 }
 
-private data class MealViewModelState(
+private data class MealDetailViewModelState(
     val isLoading: Boolean = false,
     val error: String = "",
     val mealList: List<Meal> = listOf(),
     val isPreviousPageLoaded: Boolean = false
 ) {
-    fun toUiState(): MealUiState =
-        if (mealList.isEmpty()) MealUiState.MealListEmpty(
+    fun toUiState(): MealDetailUiState =
+        if (mealList.isEmpty()) MealDetailUiState.MealDetailEmpty(
             isLoading = isLoading,
             error = error,
             isPreviousPageLoaded = isPreviousPageLoaded
         )
-        else MealUiState.HasMealList(isLoading = isLoading, error = error, mealList = mealList)
+        else MealDetailUiState.HasMealDetail(isLoading = isLoading, error = error, mealList = mealList)
 }
 
-sealed interface MealUiState {
+sealed interface MealDetailUiState {
     val isLoading: Boolean
     val error: String
 
-    data class HasMealList(
+    data class HasMealDetail(
         val mealList: List<Meal>,
         override val isLoading: Boolean,
         override val error: String
-    ) : MealUiState
+    ) : MealDetailUiState
 
-    data class MealListEmpty(
+    data class MealDetailEmpty(
         override val isLoading: Boolean,
         override val error: String,
         val isPreviousPageLoaded: Boolean
-    ) : MealUiState
+    ) : MealDetailUiState
 }
