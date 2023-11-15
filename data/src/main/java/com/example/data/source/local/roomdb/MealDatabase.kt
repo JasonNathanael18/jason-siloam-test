@@ -8,11 +8,13 @@ import androidx.room.TypeConverters
 import com.example.data.source.local.roomdb.converter.MealResponseEntityConverter
 import com.example.data.source.local.roomdb.dao.MealDao
 import com.example.data.source.local.roomdb.dao.MealResponseDao
+import com.example.data.source.local.roomdb.dao.auth.AuthDao
 import com.example.data.source.local.roomdb.entity.MealEntity
 import com.example.data.source.local.roomdb.entity.MealResponseEntity
+import com.example.data.source.local.roomdb.entity.local.AuthEntity
 
 @Database(
-    entities = [MealResponseEntity::class, MealEntity::class],
+    entities = [MealResponseEntity::class, MealEntity::class, AuthEntity::class],
     version = 1,
     exportSchema = false
 )
@@ -21,6 +23,8 @@ abstract class MealDatabase : RoomDatabase() {
     abstract fun getMealDao(): MealDao
 
     abstract fun getMealResponseDao(): MealResponseDao
+
+    abstract fun getAuthDao(): AuthDao
 
     companion object {
         @Volatile

@@ -25,4 +25,9 @@ class MealDatabaseModule {
     @Provides
     fun provideMealDao(database: MealDatabase) =
         database.getMealDao()
+
+    @Singleton
+    @Provides
+    fun provideAuthDao(database: MealDatabase) =
+        database.getAuthDao()
 }

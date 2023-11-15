@@ -10,6 +10,6 @@ object ModulesDep {
     const val navigation = ":navigation"
 
     const val content = ":featurecontent"
-    const val authentication = ":featureauthentication"
+    const val authentication = ":featureauth"
 }
 

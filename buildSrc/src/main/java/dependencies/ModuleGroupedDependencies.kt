@@ -4,6 +4,6 @@ import core.ModulesDep
 
 internal val featureModule = listOf(
     ModulesDep.content,
-    //ModulesDep.authentication,
+    ModulesDep.authentication,
 )
 

@@ -1,5 +1,6 @@
 package com.example.featurecontent.mealDetail
 
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -29,7 +30,7 @@ class MealDetailFragment : BaseFragment(R.layout.fragment_meal_detail) {
         binding = FragmentMealDetailBinding.bind(requireView())
 
         //Toast.makeText(requireContext(), mealDetailFragmentArgs.mealId, Toast.LENGTH_SHORT).show()
-        viewModel.getMealList(mealDetailFragmentArgs.mealId)
+        viewModel.getMeal(mealDetailFragmentArgs.mealId)
     }
 
     override fun initObserver() {
@@ -58,6 +59,27 @@ class MealDetailFragment : BaseFragment(R.layout.fragment_meal_detail) {
                 }
             }
         }
+
+        observeAuth()
+    }
+
+    fun observeAuth(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.authUiState.collect {
+                    when (it) {
+                        is AuthUiState.IsCredentialFound -> {
+                            if (it.isCredentialExist && !it.isLoading){
+                                Toast.makeText(requireContext(), "Ada", Toast.LENGTH_SHORT).show()
+                            }
+                            else if (!it.isLoading) {
+                                Toast.makeText(requireContext(), "Nihil", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setUi(data: Meal) {
@@ -75,5 +97,9 @@ class MealDetailFragment : BaseFragment(R.layout.fragment_meal_detail) {
             labelMealArea.text = data.strArea
             labelMealTags.text = data.strTags
         }
+
+        //viewModel.insertData("bambang", "pamungkas")
+        //viewModel.getCredential(data.strMeal, data.strArea)
+        //viewModel.getCredential("bambang", "pamungkas")
     }
 }

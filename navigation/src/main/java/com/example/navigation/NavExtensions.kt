@@ -27,9 +27,4 @@ fun NavController.deepLinkNavigateTo(
 }
 
 sealed class DeepLinkDestination(val address: String) {
-    class Detail(msg: String) :
-        DeepLinkDestination("example://featuremoviedetail/exampleArgs?msg=${msg}")
-
-    class Next(movieListData: String) :
-        DeepLinkDestination("example://featuremovielist/exampleArgs?movieListData${movieListData}")
 }

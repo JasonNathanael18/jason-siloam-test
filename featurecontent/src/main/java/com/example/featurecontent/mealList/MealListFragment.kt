@@ -1,10 +1,13 @@
 package com.example.featurecontent.mealList
 
 import android.content.Context
-import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -12,10 +15,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.commonui.BaseFragment
+import com.example.domain.SharedPreferenceModule
 import com.example.domain.model.Meal
 import com.example.featurecontent.R
 import com.example.featurecontent.databinding.FragmentMealListBinding
 import com.example.navigation.DataConvert
+import com.example.navigation.NavigationFlow
+import com.example.navigation.ToFlowNavigatable
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,11 +36,35 @@ class MealListFragment : BaseFragment(R.layout.fragment_meal_list),
     @Inject
     lateinit var dataConvert: DataConvert
 
+    @Inject
+    lateinit var pref: SharedPreferenceModule
+
     private lateinit var binding: FragmentMealListBinding
     private val viewModel: MealListViewModel by viewModels()
 
     override fun initComponent() {
         super.initComponent()
+        val menuHost: MenuHost = requireActivity()
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                return when (menuItem.itemId) {
+                    R.id.logout -> {
+                        pref.setLoginStatus(isLogin = false)
+                        (requireActivity() as ToFlowNavigatable).navigateToFlow(NavigationFlow.AuthenticationFlow)
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         binding = FragmentMealListBinding.bind(requireView())
         adapter.setOnItemClickListener(this)
 
@@ -44,6 +74,7 @@ class MealListFragment : BaseFragment(R.layout.fragment_meal_list),
         binding.rvMovieList.setAdapter(adapter)
         binding.rvMovieList.initialHideList()
 
+        adapter.clearData()
         viewModel.getMealList()
     }
 
@@ -119,4 +150,5 @@ class MealListFragment : BaseFragment(R.layout.fragment_meal_list),
             )
         )
     }
+
 }

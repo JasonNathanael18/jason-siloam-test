@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MealListViewModel @Inject constructor(
-    private val getMeal: GetMeal
+    private val getMeal: GetMeal,
 ) : ViewModel() {
 
     private val viewModelState = MutableStateFlow(MealViewModelState(isLoading = true))

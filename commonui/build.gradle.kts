@@ -1,7 +1,5 @@
-import dependencies.addHiltDependencies
-import dependencies.addNavigationDependencies
-import dependencies.addNavigationModule
-import dependencies.addTimberDependencies
+import dependencies.*
+
 plugins {
     plugins.`android-base-library`
 }
@@ -13,4 +11,5 @@ dependencies {
     addNavigationModule()
     addNavigationDependencies()
     addHiltDependencies()
+    addDomainModule()
 }
