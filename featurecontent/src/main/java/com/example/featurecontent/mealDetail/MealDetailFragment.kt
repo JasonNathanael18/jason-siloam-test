@@ -1,5 +1,6 @@
 package com.example.featurecontent.mealDetail
 
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -29,7 +30,6 @@ class MealDetailFragment : BaseFragment(R.layout.fragment_meal_detail) {
         super.initComponent()
         binding = FragmentMealDetailBinding.bind(requireView())
 
-        //Toast.makeText(requireContext(), mealDetailFragmentArgs.mealId, Toast.LENGTH_SHORT).show()
         viewModel.getMeal(mealDetailFragmentArgs.mealId)
     }
 
@@ -40,40 +40,30 @@ class MealDetailFragment : BaseFragment(R.layout.fragment_meal_detail) {
                 viewModel.uiState.collect {
                     when {
                         it.isLoading -> {
+                            binding.pb.visibility = View.VISIBLE
                         }
 
                         it is MealDetailUiState.HasMealDetail -> {
+                            binding.pb.visibility = View.GONE
                             setUi(it.mealList.first())
                         }
 
                         it is MealDetailUiState.MealDetailEmpty -> {
+                            binding.pb.visibility = View.GONE
                             if (it.error.isNotEmpty()) {
-
+                                Toast.makeText(
+                                    requireContext(),
+                                    "No Data Found",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             } else {
                                 if (!it.isLoading) {
-                                    //showEmpty("No Data Found")
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "No Data Found",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        observeAuth()
-    }
-
-    fun observeAuth(){
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.authUiState.collect {
-                    when (it) {
-                        is AuthUiState.IsCredentialFound -> {
-                            if (it.isCredentialExist && !it.isLoading){
-                                Toast.makeText(requireContext(), "Ada", Toast.LENGTH_SHORT).show()
-                            }
-                            else if (!it.isLoading) {
-                                Toast.makeText(requireContext(), "Nihil", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
@@ -83,9 +73,10 @@ class MealDetailFragment : BaseFragment(R.layout.fragment_meal_detail) {
     }
 
     private fun setUi(data: Meal) {
-        val glideOpt = RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).fitCenter()
-            .placeholder(com.example.commonui.R.drawable.ic_launcher_background)
-            .error(com.example.commonui.R.drawable.ic_launcher_background)
+        val glideOpt =
+            RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE).fitCenter()
+                .placeholder(com.example.commonui.R.drawable.ic_launcher_background)
+                .error(com.example.commonui.R.drawable.ic_launcher_background)
         Glide.with(this)
             .load(data.strMealThumb)
             .apply(glideOpt)
@@ -97,9 +88,5 @@ class MealDetailFragment : BaseFragment(R.layout.fragment_meal_detail) {
             labelMealArea.text = data.strArea
             labelMealTags.text = data.strTags
         }
-
-        //viewModel.insertData("bambang", "pamungkas")
-        //viewModel.getCredential(data.strMeal, data.strArea)
-        //viewModel.getCredential("bambang", "pamungkas")
     }
 }

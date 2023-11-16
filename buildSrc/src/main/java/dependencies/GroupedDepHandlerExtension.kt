@@ -61,12 +61,13 @@ fun DependencyHandler.addLeakcanaryDependencies(){
 }
 
 fun DependencyHandler.addAndroidTestsDependencies() {
-    add("testImplementation",Dependencies.jUnit)
-    //add("androidTestImplementation",Dependencies.jUnitTestUi)
-    add("androidTestImplementation",Dependencies.jUnitExt)
-    add("androidTestImplementation",Dependencies.espresso)
-    //add("debugImplementation",Dependencies.composeTooling)
-    //add("debugImplementation",Dependencies.composeTestManifest)
+    testImplementationDependencies.forEach {
+        add("testImplementation",it)
+    }
+
+    androidTestImplementationDependencies.forEach {
+        add("androidTestImplementation",it)
+    }
 }
 
 fun DependencyHandler.addNavigationDependencies(configurationName:String = "implementation"){

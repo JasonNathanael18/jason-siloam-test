@@ -29,7 +29,6 @@ internal object Dependencies {
     const val leakcanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakcanaryVersion}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timberVersion}"
 
-
     const val room = "androidx.room:room-runtime:2.5.1"
     const val roomCompiler = "androidx.room:room-compiler:2.5.1"
     const val roomKtx = "androidx.room:room-ktx:2.5.1"
@@ -42,14 +41,10 @@ internal object Dependencies {
     const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     const val fragment = "androidx.fragment:fragment-ktx:1.6.2"
 
-    //const val jUnit = "androidx.compose.ui:ui-test-junit4:${Versions.composeVersion}"
     const val jUnit = "junit:junit:4.13.2"
     const val jUnitExt = "androidx.test.ext:junit:${Versions.jUnitExtVersion}"
     const val jUnitExtKtx = "androidx.test.ext:junit-ktx:1.1.3"
-    //const val jUnitTestUi = "androidx.compose.ui:ui-test-junit4:${Versions.composeVersion}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoCoreVersion}"
-//    const val composeTooling = "androidx.compose.ui:ui-tooling:${Versions.composeVersion}"
-//    const val composeTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.composeVersion}"
 
     const val glide = "com.github.bumptech.glide:glide:4.11.0"
     const val glideCompiler = "com.github.bumptech.glide:compiler:4.11.0"
@@ -66,5 +61,6 @@ internal object Dependencies {
     const val kotlinCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2"
     const val dexmakerMockito = "com.linkedin.dexmaker:dexmaker-mockito-inline:2.28.1"
     const val mockitoAndroid = "org.mockito:mockito-android:3.11.2"
+    const val turbine = "app.cash.turbine:turbine:1.0.0"
 
 }

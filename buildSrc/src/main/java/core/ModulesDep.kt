@@ -5,7 +5,6 @@ object ModulesDep {
     const val data = ":data"
     const val domain = ":domain"
     const val common = ":commonui"
-    const val uiComponent = ":uicomponent"
 
     const val navigation = ":navigation"
 

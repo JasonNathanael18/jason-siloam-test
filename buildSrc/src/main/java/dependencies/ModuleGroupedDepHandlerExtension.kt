@@ -20,10 +20,6 @@ fun DependencyHandler.addCommonModule(){
     add("implementation", project(ModulesDep.common))
 }
 
-fun DependencyHandler.addUiComponentModule(){
-    add("implementation", project(ModulesDep.uiComponent))
-}
-
 fun DependencyHandler.addNavigationModule(){
     add("implementation", project(ModulesDep.navigation))
 }

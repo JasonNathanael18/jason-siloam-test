@@ -36,5 +36,33 @@ internal val navigationDependencies = listOf(
     Dependencies.fragment,
 )
 
+internal val testImplementationDependencies = listOf(
+    Dependencies.jUnit,
+    Dependencies.googleTruth,
+    Dependencies.mockitoCore,
+    Dependencies.mockitoInline,
+    Dependencies.archCore,
+    Dependencies.espresso,
+    Dependencies.archTestCore,
+    Dependencies.roboelectric,
+    Dependencies.jUnitExtKtx,
+    Dependencies.testRunner,
+    Dependencies.testRules,
+    Dependencies.kotlinCoroutinesTest,
+    Dependencies.dexmakerMockito,
+    Dependencies.turbine,
+)
+
+internal val androidTestImplementationDependencies = listOf(
+    Dependencies.dexmakerMockito,
+    Dependencies.googleTruth,
+    Dependencies.archCore,
+    Dependencies.jUnit,
+    Dependencies.espresso,
+    Dependencies.kotlinCoroutinesTest,
+    Dependencies.mockitoAndroid
+
+)
+
 
 
